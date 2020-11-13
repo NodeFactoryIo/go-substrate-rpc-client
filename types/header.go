@@ -22,7 +22,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/centrifuge/go-substrate-rpc-client/scale"
+	"github.com/NodeFactoryIo/go-substrate-rpc-client/scale"
 )
 
 type Header struct {

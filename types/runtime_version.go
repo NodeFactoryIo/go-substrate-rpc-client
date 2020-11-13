@@ -20,7 +20,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/centrifuge/go-substrate-rpc-client/scale"
+	"github.com/NodeFactoryIo/go-substrate-rpc-client/scale"
 )
 
 type RuntimeVersion struct {
