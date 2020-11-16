@@ -101,7 +101,11 @@ func (r *serviceRegistry) callback(method string) *callback {
 	}
 	r.mu.Lock()
 	defer r.mu.Unlock()
-	return r.services[elem[0]].callbacks[elem[1]]
+	c := r.services[elem[0]].callbacks[elem[1]]
+	if c == nil {
+		c = r.services[elem[0]].subscriptions[elem[1]]
+	}
+	return c
 }
 
 // subscription returns a subscription callback in the given service.

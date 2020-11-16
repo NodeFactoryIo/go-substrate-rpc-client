@@ -28,6 +28,9 @@ import (
 )
 
 func TestChain_Events(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping end-to-end test in short mode.")
+	}
 	targetURL := config.Default().RPCURL // Replace with desired endpoint
 	api, err := gsrpc.NewSubstrateAPI(targetURL)
 	if err != nil {
