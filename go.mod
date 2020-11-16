@@ -1,9 +1,8 @@
-module github.com/centrifuge/go-substrate-rpc-client
+module github.com/NodeFactoryIo/go-substrate-rpc-client
 
 go 1.15
 
 require (
-	github.com/NodeFactoryIo/go-substrate-rpc-client v2.0.0+incompatible
 	github.com/aristanetworks/goarista v0.0.0-20190712234253-ed1100a1c015 // indirect
 	github.com/davecgh/go-spew v1.1.1
 	github.com/deckarep/golang-set v1.7.1
