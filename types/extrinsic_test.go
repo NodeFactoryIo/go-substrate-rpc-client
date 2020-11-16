@@ -76,10 +76,10 @@ func TestExtrinsic_Sign(t *testing.T) {
 	o := SignatureOptions{
 		BlockHash: NewHash(MustHexDecodeString("0xec7afaf1cca720ce88c1d1b689d81f0583cc15a97d621cf046dd9abf605ef22f")),
 		// Era: ExtrinsicEra{IsImmortalEra: true},
-		GenesisHash: NewHash(MustHexDecodeString("0xdcd1346701ca8396496e52aa2785b1748deb6db09551b72159dcb3e08991025b")),
-		Nonce:       NewUCompactFromUInt(1),
-		SpecVersion: 123,
-		Tip:         NewUCompactFromUInt(2),
+		GenesisHash:        NewHash(MustHexDecodeString("0xdcd1346701ca8396496e52aa2785b1748deb6db09551b72159dcb3e08991025b")),
+		Nonce:              NewUCompactFromUInt(1),
+		SpecVersion:        123,
+		Tip:                NewUCompactFromUInt(2),
 		TransactionVersion: 1,
 	}
 
@@ -136,7 +136,7 @@ func TestExtrinsic_Sign(t *testing.T) {
 	// verify sig
 	b, err := EncodeToBytes(verifyPayload)
 	assert.NoError(t, err)
-	ok, err := signature.Verify(b, extDec.Signature.Signature.AsSr25519[:], HexEncodeToString(signature.TestKeyringPairAlice.PublicKey))
+	ok, err := signature.Verify(b, extDec.Signature.Signature.AsSr25519[:], signature.TestKeyringPairAlice.URI)
 	assert.NoError(t, err)
 	assert.True(t, ok)
 }
