@@ -3,7 +3,7 @@ package types
 import (
 	"fmt"
 
-	"github.com/centrifuge/go-substrate-rpc-client/scale"
+	"github.com/NodeFactoryIo/go-substrate-rpc-client/scale"
 )
 
 type BalanceStatus byte
