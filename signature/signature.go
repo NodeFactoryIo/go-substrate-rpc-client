@@ -20,7 +20,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/vedhavyas/go-subkey/common"
-	sr "github.com/vedhavyas/go-subkey/sr25519"
+	subkey "github.com/vedhavyas/go-subkey/sr25519"
 	"golang.org/x/crypto/blake2b"
 	"os"
 )
@@ -41,7 +41,7 @@ func KeyringPairFromSecret(seedOrPhrase, network string) (KeyringPair, error) {
 		network = "substrate"
 	}
 
-	kyr, err := sr.KeyRingFromURI(seedOrPhrase)
+	kyr, err := subkey.KeyRingFromURI(seedOrPhrase)
 	if err != nil {
 		return KeyringPair{}, err
 	}
@@ -78,7 +78,7 @@ func Sign(data []byte, privateKeyURI string) ([]byte, error) {
 		data = h[:]
 	}
 
-	kyr, err := sr.KeyRingFromURI(privateKeyURI)
+	kyr, err := subkey.KeyRingFromURI(privateKeyURI)
 	if err != nil {
 		return nil, err
 	}
@@ -105,7 +105,7 @@ func Verify(data []byte, sig []byte, privateKeyURI string) (bool, error) {
 		data = h[:]
 	}
 
-	kyr, err := sr.KeyRingFromURI(privateKeyURI)
+	kyr, err := subkey.KeyRingFromURI(privateKeyURI)
 	if err != nil {
 		return false, err
 	}
