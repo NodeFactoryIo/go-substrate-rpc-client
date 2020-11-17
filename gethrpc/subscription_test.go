@@ -136,7 +136,7 @@ func TestServerUnsubscribe(t *testing.T) {
 	p2.SetDeadline(time.Now().Add(10 * time.Second))
 
 	// Subscribe.
-	p2.Write([]byte(`{"jsonrpc":"2.0","id":1,"method":"nftest2_someSubscription","params":[0,10]}`))
+	p2.Write([]byte(`{"jsonrpc":"2.0","id":1,"method":"nftest2_subscribe","params":["someSubscription",0,10]}`))
 
 	// Handle received messages.
 	resps := make(chan subConfirmation)
@@ -153,8 +153,7 @@ func TestServerUnsubscribe(t *testing.T) {
 	}
 
 	// Unsubscribe and check that it is handled on the server side.
-
-	p2.Write([]byte(fmt.Sprintf("{\"jsonrpc\":\"2.0\",\"method\":\"nftest2_unsubscribe\",\"params\":[\"%v\"]}", sub.subid)))
+	p2.Write([]byte(`{"jsonrpc":"2.0","method":"nftest2_unsubscribe","params":["` + sub.subid + `"]}`))
 	for {
 		select {
 		case id := <-service.unsubscribed:

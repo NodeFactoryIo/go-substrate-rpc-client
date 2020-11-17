@@ -203,36 +203,36 @@ func testClientCancel(transport string, t *testing.T) {
 	wg.Wait()
 }
 
-//func TestClientSubscribeInvalidArg(t *testing.T) {
-//	server := newTestServer()
-//	defer server.Stop()
-//	client := DialInProc(server)
-//	defer client.Close()
-//
-//	check := func(shouldPanic bool, arg interface{}) {
-//		defer func() {
-//			err := recover()
-//			if shouldPanic && err == nil {
-//				t.Errorf("EthSubscribe should've panicked for %#v", arg)
-//			}
-//			if !shouldPanic && err != nil {
-//				t.Errorf("EthSubscribe shouldn't have panicked for %#v", arg)
-//				buf := make([]byte, 1024*1024)
-//				buf = buf[:runtime.Stack(buf, false)]
-//				t.Error(err)
-//				t.Error(string(buf))
-//			}
-//		}()
-//		// todo
-//		// client.EthSubscribe(context.Background(), arg, "foo_bar")
-//	}
-//	check(true, nil)
-//	check(true, 1)
-//	check(true, (chan int)(nil))
-//	check(true, make(<-chan int))
-//	check(false, make(chan int))
-//	check(false, make(chan<- int))
-//}
+func TestClientSubscribeInvalidArg(t *testing.T) {
+	server := newTestServer()
+	defer server.Stop()
+	client := DialInProc(server)
+	defer client.Close()
+
+	check := func(shouldPanic bool, arg interface{}) {
+		defer func() {
+			err := recover()
+			if shouldPanic && err == nil {
+				t.Errorf("EthSubscribe should've panicked for %#v", arg)
+			}
+			if !shouldPanic && err != nil {
+				t.Errorf("EthSubscribe shouldn't have panicked for %#v", arg)
+				buf := make([]byte, 1024*1024)
+				buf = buf[:runtime.Stack(buf, false)]
+				t.Error(err)
+				t.Error(string(buf))
+			}
+		}()
+		// todo
+		client.EthSubscribe(context.Background(), arg, "foo_bar")
+	}
+	check(true, nil)
+	check(true, 1)
+	check(true, (chan int)(nil))
+	check(true, make(<-chan int))
+	check(false, make(chan int))
+	check(false, make(chan<- int))
+}
 
 func TestClientSubscribe(t *testing.T) {
 	server := newTestServer()
@@ -242,7 +242,7 @@ func TestClientSubscribe(t *testing.T) {
 
 	nc := make(chan int)
 	count := 10
-	sub, err := client.Subscribe(context.Background(), "nftest","someSubscription", "", "", nc, count, 0)
+	sub, err := client.Subscribe(context.Background(), "nftest", nc, "someSubscription", count, 0)
 
 	if err != nil {
 		t.Fatal("can't subscribe:", err)
@@ -288,8 +288,7 @@ func TestClientSubscribeClose(t *testing.T) {
 		err  error
 	)
 	go func() {
-		// todo
-		sub, err = client.Subscribe(context.Background(), "nftest2", "hangSubscription", "hangSubscription", "hangSubscription", nc)
+		sub, err = client.Subscribe(context.Background(), "nftest2", nc, "hangSubscription", 999)
 		errc <- err
 	}()
 
@@ -319,8 +318,7 @@ func TestClientCloseUnsubscribeRace(t *testing.T) {
 	for i := 0; i < 20; i++ {
 		client := DialInProc(server)
 		nc := make(chan int)
-		// todo
-		sub, err := client.Subscribe(context.Background(), "nftest", "someSubscription", "someSubscription", "someSubscription", nc)
+		sub, err := client.Subscribe(context.Background(), "nftest", nc, "someSubscription", 3, 1)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -349,8 +347,7 @@ func TestClientNotificationStorm(t *testing.T) {
 		// Subscribe on the server. It will start sending many notifications
 		// very quickly.
 		nc := make(chan int)
-		// todo
-		sub, err := client.Subscribe(ctx, "nftest", "someSubscribe", "", "", nc, count,  0)
+		sub, err := client.Subscribe(ctx, "nftest", nc, "someSubscription", count, 0)
 		if err != nil {
 			t.Fatal("can't subscribe:", err)
 		}
