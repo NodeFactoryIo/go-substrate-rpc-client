@@ -101,13 +101,6 @@ func (r *serviceRegistry) callback(method string) *callback {
 	}
 	r.mu.Lock()
 	defer r.mu.Unlock()
-	
-	//c := r.services[elem[0]].callbacks[elem[1]]
-	//if c == nil {
-	//	c = r.services[elem[0]].subscriptions[elem[1]]
-	//}
-	//return c
-
 	return r.services[elem[0]].callbacks[elem[1]]
 }
 
