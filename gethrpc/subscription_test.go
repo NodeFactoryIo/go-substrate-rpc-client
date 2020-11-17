@@ -19,6 +19,7 @@ package rpc
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/ethereum/go-ethereum/common/hexutil"
 	"net"
 	"strings"
 	"testing"
@@ -28,7 +29,7 @@ import (
 func TestNewID(t *testing.T) {
 	hexchars := "0123456789ABCDEFabcdef"
 	for i := 0; i < 100; i++ {
-		id := string(NewID())
+		id := hexutil.EncodeUint64(uint64(NewID()))
 		if !strings.HasPrefix(id, "0x") {
 			t.Fatalf("invalid ID prefix, want '0x...', got %s", id)
 		}
