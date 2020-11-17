@@ -14,13 +14,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package gsrpc
+package gsrpc_test
 
 import (
 	"fmt"
 	"math/big"
 	"time"
 
+	gsrpc "github.com/NodeFactoryIo/go-substrate-rpc-client"
 	"github.com/NodeFactoryIo/go-substrate-rpc-client/config"
 	"github.com/NodeFactoryIo/go-substrate-rpc-client/signature"
 	"github.com/NodeFactoryIo/go-substrate-rpc-client/types"
@@ -29,7 +30,7 @@ import (
 func Example_simpleConnect() {
 	// The following example shows how to instantiate a Substrate API and use it to connect to a node
 
-	api, err := NewSubstrateAPI(config.Default().RPCURL)
+	api, err := gsrpc.NewSubstrateAPI(config.Default().RPCURL)
 	if err != nil {
 		panic(err)
 	}
@@ -59,7 +60,7 @@ func Example_listenToNewBlocks() {
 	//
 	// NOTE: The example runs until 10 blocks are received or until you stop it with CTRL+C
 
-	api, err := NewSubstrateAPI(config.Default().RPCURL)
+	api, err := gsrpc.NewSubstrateAPI(config.Default().RPCURL)
 	if err != nil {
 		panic(err)
 	}
@@ -90,7 +91,7 @@ func Example_listenToBalanceChange() {
 	//
 	// NOTE: The example runs until you stop it with CTRL+C
 
-	api, err := NewSubstrateAPI(config.Default().RPCURL)
+	api, err := gsrpc.NewSubstrateAPI(config.Default().RPCURL)
 	if err != nil {
 		panic(err)
 	}
@@ -157,7 +158,7 @@ func Example_unsubscribeFromListeningToUpdates() {
 	// In this example we're calling the built-in unsubscribe() function after a timeOut of 20s to cleanup and
 	// unsubscribe from listening to updates.
 
-	api, err := NewSubstrateAPI(config.Default().RPCURL)
+	api, err := gsrpc.NewSubstrateAPI(config.Default().RPCURL)
 	if err != nil {
 		panic(err)
 	}
@@ -186,7 +187,7 @@ func Example_makeASimpleTransfer() {
 	// This sample shows how to create a transaction to make a transfer from one an account to another.
 
 	// Instantiate the API
-	api, err := NewSubstrateAPI(config.Default().RPCURL)
+	api, err := gsrpc.NewSubstrateAPI(config.Default().RPCURL)
 	if err != nil {
 		panic(err)
 	}
@@ -261,7 +262,7 @@ func Example_displaySystemEvents() {
 	// Query the system events and extract information from them. This example runs until exited via Ctrl-C
 
 	// Create our API with a default connection to the local node
-	api, err := NewSubstrateAPI(config.Default().RPCURL)
+	api, err := gsrpc.NewSubstrateAPI(config.Default().RPCURL)
 	if err != nil {
 		panic(err)
 	}
@@ -396,7 +397,7 @@ func Example_transactionWithEvents() {
 	// Display the events that occur during a transfer by sending a value to bob
 
 	// Instantiate the API
-	api, err := NewSubstrateAPI(config.Default().RPCURL)
+	api, err := gsrpc.NewSubstrateAPI(config.Default().RPCURL)
 	if err != nil {
 		panic(err)
 	}

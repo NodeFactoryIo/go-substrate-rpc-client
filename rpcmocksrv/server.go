@@ -17,9 +17,9 @@
 package rpcmocksrv
 
 import (
-	"math/rand"
+	"crypto/rand"
+	"math/big"
 	"strconv"
-	"time"
 
 	gethrpc "github.com/NodeFactoryIo/go-substrate-rpc-client/gethrpc"
 )
@@ -50,8 +50,8 @@ func New() *Server {
 }
 
 func randomPort() int {
-	rand.Seed(time.Now().UnixNano())
-	min := 10000
-	max := 30000
-	return rand.Intn(max-min+1) + min
+	min := int64(10000)
+	max := int64(30000)
+	n, _ := rand.Int(rand.Reader, big.NewInt(max-min+1))
+	return int(n.Int64() + min)
 }

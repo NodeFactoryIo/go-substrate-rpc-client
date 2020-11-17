@@ -19,10 +19,11 @@ package signature
 import (
 	"errors"
 	"fmt"
+	"os"
+
 	"github.com/vedhavyas/go-subkey/common"
 	subkey "github.com/vedhavyas/go-subkey/sr25519"
 	"golang.org/x/crypto/blake2b"
-	"os"
 )
 
 type KeyringPair struct {

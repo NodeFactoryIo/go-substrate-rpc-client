@@ -41,9 +41,9 @@ type client struct {
 	url string
 
 	// metadataVersioned is the metadata cache to prevent unnecessary requests
-	//metadataVersioned *MetadataVersioned
+	// metadataVersioned *MetadataVersioned
 
-	//metadataLock sync.RWMutex
+	// metadataLock sync.RWMutex
 }
 
 // URL returns the URL the client connects to
@@ -52,7 +52,7 @@ func (c client) URL() string {
 }
 
 // TODO move to State struct
-//func (c *client) MetaData(cache bool) (m *MetadataVersioned, err error) {
+// func (c *client) MetaData(cache bool) (m *MetadataVersioned, err error) {
 //	if cache && c.metadataVersioned != nil {
 //		c.metadataLock.RLock()
 //		defer c.metadataLock.RUnlock()
