@@ -16,7 +16,6 @@
 
 package rpc
 
-
 import (
 	"context"
 	"fmt"
@@ -223,7 +222,6 @@ func TestClientSubscribeInvalidArg(t *testing.T) {
 				t.Error(string(buf))
 			}
 		}()
-		// todo
 		client.EthSubscribe(context.Background(), arg, "foo_bar")
 	}
 	check(true, nil)
@@ -243,7 +241,6 @@ func TestClientSubscribe(t *testing.T) {
 	nc := make(chan int)
 	count := 10
 	sub, err := client.Subscribe(context.Background(), "nftest", nc, "someSubscription", count, 0)
-
 	if err != nil {
 		t.Fatal("can't subscribe:", err)
 	}
